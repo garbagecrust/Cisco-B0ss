@@ -4,8 +4,8 @@ SendMode Input  ; Recommended for new scripts due to its superior speed and reli
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 ;CISCO BOSS: 
-;	make the router your 
-; 	bitch with this easy peasy script!
+;	make the router your bitch 
+;	with this easy peasy script!
 ;▒▒▒░▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒░▒▒▒░▒▒▒░▒
 ;▒░▒▒▒▒▒▄▄▀░░░░░▀▄▄▒▒▒▒░▒▒▒░▒▒▒
 ;▒▒▒░▒███▀▀▀▀███████▄▒▒▒▒░▒▒▒░▒
@@ -27,7 +27,15 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 ;▒▄▀▒▒▒▒▒▒▀▒▄░░░▄▀▒▒▒░▒▒▒▒▒░▒▒▒
 ;▀▒▒▒▒▒▒▒▒▄▄█████▄▒▒░▒▒▒▒▒░▒▒▒▒
 ;
-; de-config router or switch
+;Created by he who shall not be named
+;
+;
+;
+;
+;
+; ********************
+; *** Router Erase ***
+; ********************
 ^!1::
 	send, no{ENTER}
 	sleep, 20000
@@ -49,7 +57,9 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 	send, no{ENTER}{ENTER}
 Return
 
-;set default password set 
+; ************************
+; *** Default Settings ***
+; ************************
 
 ^!2::
 	send, en{enter}
@@ -87,10 +97,40 @@ ________  ___  ________  ________  ________
 	send, hostname{space}
 return
 
-;###################################################
-;# # # # # # # # # # # # # # # # # # # # # # # # # #
-;###################################################
-;Section: Subnets
+;***********************
+;*** Config Exporter ***
+;***********************
+;  log into telnet session with standard credentials
+	send, cisco{enter}en{enter}class{enter}
+	sleep, 100
+	send, sh run{enter}
+;  access running config	
+	Loop 15 {
+	Send, {Space down}
+	Sleep, 100
+	}
+	Send, {ENTER up}
+;  Copy config	
+	sleep, 200
+	send, {Ctrl down}
+	send a
+	send, {Ctrl up}
+	send, ^a
+	sleep, 100
+	send, {enter}
+;  open Notepad and copy
+	send, #r
+	sleep, 100
+	send, notepad{Enter}
+	sleep, 100
+	send, ^V
+	sleep, 500
+	send, {Ctrl down}s{Ctrl up}
+Return
+
+; ***************************
+; *** Subnet Autocomplete ***
+; ***************************
 ; autofill subnet mask based on input prefix
 Numpad0 & 0::
 	send, 0.0.0.0
