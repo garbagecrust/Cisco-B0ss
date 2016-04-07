@@ -9,7 +9,7 @@ Instructions:
 
   press Ctrl + Alt + 1 to trigger the script
   
-  Please for the love of %DEITY% keep the Putty or CMD window selected. The last thing you want is a rogue macro...
+  Please for the love of %DEITY% keep the Putty or CMD window selected. The last thing you want is a rogue macro... Seriously, when you run these scripts just don't touch the keyboard or mouse until they're done. Trust me, things get weird. 
   
   When done, the router will reboot. Usually takes around 30-40 seconds
 
