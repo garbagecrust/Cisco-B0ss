@@ -7,9 +7,9 @@ Instructions:
 
   connect via telnet or console
 
-  press Ctrl + Alt + 1
+  press Ctrl + Alt + 1 to trigger the script
   
-  Please for the love of %DEITY% keep the Putty of CMD window selected
+  Please for the love of %DEITY% keep the Putty or CMD window selected. The last thing you want is a rogue macro...
   
   When done, the router will reboot. Usually takes around 30-40 seconds
 
