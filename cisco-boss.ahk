@@ -100,6 +100,7 @@ return
 ;***********************
 ;*** Config Exporter ***
 ;***********************
+^!3::
 ;  log into telnet session with standard credentials
 	send, cisco{enter}en{enter}class{enter}
 	sleep, 100
