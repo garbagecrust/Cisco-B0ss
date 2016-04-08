@@ -20,8 +20,16 @@ Instructions:
   Press Ctrl + Alt + 2
   
   wait for around three seconds
+  
+3. Config Exporter
+  
+  Connect via Telnet in CMD.EXE
+  
+  Press Ctrl + Alt + 3
 
-3. Subnetting
+  When the script is done, save the file
+
+4. Subnetting
 
   simply press the digits consisting of the network prefix length in order on the numpad
   
