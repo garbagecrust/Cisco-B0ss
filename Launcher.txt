@@ -1,0 +1,9 @@
+Win+R
+
+sysdm.cpl
+
+Advanced tab
+
+Environment Variables
+
+New System Variable: path to putty.exe
