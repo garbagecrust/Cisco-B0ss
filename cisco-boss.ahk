@@ -62,6 +62,7 @@ Return
 ; ************************
 
 ^!2::
+	InputBox, HostName, Enter HostName, ENTER ROUTER HOSTNAME
 	send, en{enter}
 	send, conf t{enter}
 	send, no ip domain-lookup{enter} 
@@ -94,7 +95,8 @@ ________  ___  ________  ________  ________
 	send, ip http server{enter}
 	send, ip http auth enable{enter}
 	send, ip http port 80{enter}
-	send, hostname{space}
+	send, hostname{space}%hostname%{enter}
+	send, end{enter}wr mem{enter}
 return
 
 ;***********************
