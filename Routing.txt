@@ -1,0 +1,182 @@
+**********************
+*** Static Routing ***
+**********************
+Standard route: 
+Ip route <network><mask> [<next-hop-IP> | <interface>]
+
+Default static route: 
+Ip route 0.0.0.0 0.0.0.0 [<next-hop-IP> | <interface>]
+
+************
+*** OSPF ***
+************
+
+Router ospf <process ID>
+Router-id <1.1.1.1>
+	
+Network 10.1.0.0 0.0.0.255 area 0
+Network <ip address> <inverse mask> area <area ID>
+	
+Passive-interface G0/0
+
+Adjusting cost
+Auto-Cost Reference-Bandwidth <10 000> 
+Auto-Cost reference-bandwidth 1000
+	Needs to be set on network with gig+ interfaces. 
+Int <s0/0/0>
+	Bandwidth 64
+
+Manually set the OSPF cost: 
+Router ospf <process-ID>
+Ip ospf cost <15625>
+	
+Ipv6 router OSPF  <process-ID>
+Int <type><number>
+	Ipv6 ospf <process> area <area>
+
+OSPF show commands
+Show ipv6 ospf interface
+Show ipv6 ospf interface brief
+Show ipv6 route ospf
+
+**********************
+*** Access Control ***
+**********************
+
+Standard: 
+Ip access-list [standard] [ID | name] 
+# [Permit | deny | remark] [<src> <inv mask>]
+Access-list <ID> remark <Describe what the ACL does!>
+
+Edit standard ACLs
+Show ip access list [name | ID]
+	See sequence number of the incorrect ACE::
+Ip access list standard [name | ID]
+No <seq-num>
+<seq-num> [deny | permit] . . . 
+
+Show access-lists standard
+
+
+Extended: 
+Ip access-list [extended] [<name>]
+	[Permit | Deny | Remark] [IP|TCP|UDP] [host | any | <src><inv mask>] [<Dest><inv mask> | host | any] eq [port | protocol]
+	
+	Logical operators: 
+		Eq	equals
+		Neq	not equal to
+		Gt	greater than
+		Lt	less than
+
+Edit Extended ACLs: 
+Ip access list [name]
+No <seq-num>
+<seq-num> [permit | deny] . . .
+
+Bind To Interface!
+Int <int alias>
+	Ip access group [<name> | <ID>] [in | out]
+	No ip access group
+
+Bind to VTY Interface!
+Line vty 0 4 
+	Access-class [name | <access #>] [in | out]
+
+**************
+*** DHCPv4 ***
+**************
+
+Exclusions
+Ip dhcp excluded-address <start> <end>
+
+Then start the service
+Int <>
+Ip dhcp pool "name"
+Network <network> <mask>
+Default-router <router ip>
+Dns-server <ip>
+Domain-name <name.com>
+
+Config router as dhcp client
+Int <>
+	Ip addr dhcp
+	No shut
+
+DHCPv4 Relay
+On inbound interface: redirect to foreign DHCP server
+Int <g0/1>
+Ip helper-address <DHCP server>
+End
+
+Debug dhcp server [config | errors | events]
+
+**************
+*** DHCPv6 ***
+**************
+Enable autoconfig on IPv6 Interface
+Interface <type><number>
+Ipv6 enable 
+Ipv6 address autoconfig
+
+Enable DHCP on IPv6 Interface
+Interface <type><number>
+Ipv6 enable
+Ipv6 address dhcp
+
+Stateless DHCPv6 server
+Ipv6 unicast routing
+Ipv6 DHCP pool <pool-name>
+DNS-server <address>
+Domain-name <name.tld>
+
+Interface <type><number>
+Ipv6 address <prefix>/<prefix-length>
+Ipv6 DHCP server <pool-name>
+Ipv6 nd other-config-flag
+	Server responds to stateless requests with interface in pool
+	
+Stateful DHCPv6 Server
+Ipv6 unicast-routing
+Ipv6 dhcp pool <pool-name>
+Address <prefix>/<length> [lifetime <valid-lifetime> <preferred-lifetime> | Infinite]
+Dns-server <address>
+Domain-name <name.tld>
+
+Interface <type><number>
+Ipv6 dhcp server <pool-name>
+Ipv6 nd managed-config-flag
+
+DHCPv6 relay: 
+Interface <type><number>
+Ipv6 DHCP relay destination <ipv6>
+
+Show commands: 
+Show ipv6 DHCP pool
+Debug ipv6 DHCP [detail | relay]
+Show ipv6 dhcp binding
+Show ipv6 interface [brief]
+Show ipv6 dhcp interface <type><number>
+
+HTTP server
+Set up VTY and Enable password
+Ip http server
+Ip http auth enable
+Ip http port 80
+
+***********
+*** NAT ***
+***********
+Ip nat pool <name> <start> <end> [netmask <mask> | prefix-length </24]
+access-list <acl-id> permit <source> <inv-mask>
+Ip nat inside source list <acl-id> [pool <name>]-[interface <out int>]
+
+Int <>
+Ip nat [inside | outside]
+
+show ip nat translations
+clear ip nat statistics
+
+*** PAT ***
+access-list <acl-id> permit <source> <inv-mask>
+Ip nat inside source list <acl-id> [pool <name>]-[interface <out int>] overload
+
