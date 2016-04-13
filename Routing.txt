@@ -1,10 +1,10 @@
 **********************
 *** Static Routing ***
 **********************
-	Standard route: 
+*Standard route: 
 Ip route <network><mask> [<next-hop-IP> | <interface>]
 
-	Default static route: 
+*Default static route: 
 Ip route 0.0.0.0 0.0.0.0 [<next-hop-IP> | <interface>]
 
 ************
@@ -19,14 +19,14 @@ Network <ip address> <inverse mask> area <area ID>
 	
 Passive-interface G0/0
 
-	Adjusting cost
+*Adjusting cost
 Auto-Cost Reference-Bandwidth <10 000> 
 Auto-Cost reference-bandwidth 1000
-	Needs to be set on network with gig+ interfaces. 
+*Needs to be set on network with gig+ interfaces. 
 Int <s0/0/0>
 	Bandwidth 64
 
-	Manually set the OSPF cost: 
+*Manually set the OSPF cost: 
 Router ospf <process-ID>
 Ip ospf cost <15625>
 	
@@ -34,7 +34,7 @@ Ipv6 router OSPF  <process-ID>
 Int <type><number>
 	Ipv6 ospf <process> area <area>
 
-	OSPF show commands
+***OSPF show commands
 Show ipv6 ospf interface
 Show ipv6 ospf interface brief
 Show ipv6 route ospf
@@ -50,12 +50,12 @@ Access-list <ID> remark <Describe what the ACL does!>
 
 ***Edit standard ACLs
 Show ip access list [name | ID]
-	See sequence number of the incorrect ACE::
+*See sequence number of the incorrect ACE::
 Ip access list standard [name | ID]
 No <seq-num>
 <seq-num> [deny | permit] . . . 
 
-Show access-lists standard
+Show access-lists [standard | extended]
 
 
 ***Extended: 
